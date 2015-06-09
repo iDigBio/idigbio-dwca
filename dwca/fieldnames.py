@@ -47,7 +47,7 @@ types = {
     "http://rs.tdwg.org/dwc/terms/ResourceRelationship": { "shortname": "dwc:ResourceRelationship" },
     "http://rs.gbif.org/terms/1.0/VernacularName": { "shortname": "gbif:VernacularName" },
     "http://rs.gbif.org/terms/1.0/SpeciesProfile": { "shortname": "gbif:SpeciesProfile" },
-    "http://purl.org/NET/aec/associatedTaxa": {"shortname", "aec:associatedTaxa"}
+    "http://purl.org/NET/aec/associatedTaxa": {"shortname": "aec:associatedTaxa"}
 }
 
 translate_dict = {

@@ -84,8 +84,8 @@ class DelimitedFileReader:
                 
                 lineDict = {}
                 for k in self.header:
-                    lineArr[k] = lineArr[k].strip()
                     try:
+                        lineArr[k] = lineArr[k].strip()
                         if lineArr[k] != "":
                             lineDict[self.header[k]] = lineArr[k]
                     except IndexError as e:                        
