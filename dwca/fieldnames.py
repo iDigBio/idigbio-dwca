@@ -6,7 +6,7 @@ from collections import defaultdict
 
 from log import logger
 
-namespaces = { 
+namespaces = {
     "http://rs.tdwg.org/dwc/terms/": "dwc",
     "http://purl.org/dc/terms/": "dcterms",
     "http://purl.org/dc/elements/1.1/": "dc",
@@ -28,7 +28,7 @@ namespaces = {
     "http://purl.org/NET/aec/": "aec",
 }
 
-namespaces_rev = {v:k for k, v in namespaces.items()}
+namespaces_rev = {v: k for k, v in namespaces.items()}
 
 # Temp hack to make sure aec is right
 namespaces_rev["aec"] = "http://purl.org/NET/aec/"
@@ -36,17 +36,17 @@ namespaces_rev["aec"] = "http://purl.org/NET/aec/"
 # Manual Reverse Override
 namespaces_rev["Iptc4xmpExt"] = "http://iptc.org/std/Iptc4xmpExt/2008-02-29/"
 
-types = { 
-    "http://rs.tdwg.org/dwc/terms/Occurrence": { "shortname": "dwc:Occurrence" },
-    "http://rs.tdwg.org/ac/terms/multimedia": { "shortname": "dwc:Multimedia"},
-    "http://rs.tdwg.org/ac/terms/Multimedia": { "shortname": "dwc:Multimedia"},
-    "http://rs.tdwg.org/ac/terms/Audubon_Core": { "shortname": "dwc:Multimedia"},
-    "http://rs.gbif.org/terms/1.0/Image":  { "shortname": "dwc:Multimedia"},
-    "http://rs.gbif.org/terms/1.0/Multimedia": { "shortname": "dwc:Multimedia"},
-    "http://rs.tdwg.org/dwc/terms/Identification": { "shortname": "dwc:Identification" },
-    "http://rs.tdwg.org/dwc/terms/ResourceRelationship": { "shortname": "dwc:ResourceRelationship" },
-    "http://rs.gbif.org/terms/1.0/VernacularName": { "shortname": "gbif:VernacularName" },
-    "http://rs.gbif.org/terms/1.0/SpeciesProfile": { "shortname": "gbif:SpeciesProfile" },
+types = {
+    "http://rs.tdwg.org/dwc/terms/Occurrence": {"shortname": "dwc:Occurrence"},
+    "http://rs.tdwg.org/ac/terms/multimedia": {"shortname": "dwc:Multimedia"},
+    "http://rs.tdwg.org/ac/terms/Multimedia": {"shortname": "dwc:Multimedia"},
+    "http://rs.tdwg.org/ac/terms/Audubon_Core": {"shortname": "dwc:Multimedia"},
+    "http://rs.gbif.org/terms/1.0/Image":  {"shortname": "dwc:Multimedia"},
+    "http://rs.gbif.org/terms/1.0/Multimedia": {"shortname": "dwc:Multimedia"},
+    "http://rs.tdwg.org/dwc/terms/Identification": {"shortname": "dwc:Identification"},
+    "http://rs.tdwg.org/dwc/terms/ResourceRelationship": {"shortname": "dwc:ResourceRelationship"},
+    "http://rs.gbif.org/terms/1.0/VernacularName": {"shortname": "gbif:VernacularName"},
+    "http://rs.gbif.org/terms/1.0/SpeciesProfile": {"shortname": "gbif:SpeciesProfile"},
     "http://purl.org/NET/aec/associatedTaxa": {"shortname": "aec:associatedTaxa"}
 }
 
@@ -533,8 +533,10 @@ translate_dict = {
     "YearCollected": ["dwc:year", "dwc:Occurrence"],
 }
 
+
 def get_types():
     return types
+
 
 def get_canonical_name(f):
     # Remove all non-printable characters
@@ -544,14 +546,17 @@ def get_canonical_name(f):
     else:
         logger.warn("Unmapped field: \"{0}\"".format(f.encode("utf8")))
         return [f, "Unknown"]
-        
+
+
 def print_sorted_dict():
     ks = translate_dict.keys()
     ks = sorted(ks, key=lambda s: s.lower())
     print("{")
     for k in ks:
-        print("    \"{0}\": {1},".format(k, json.dumps(translate_dict[k]).replace("null","None")))
+        print("    \"{0}\": {1},".format(
+            k, json.dumps(translate_dict[k]).replace("null", "None")))
     print("}")
+
 
 def print_ns_counts():
     ks = translate_dict.keys()
@@ -562,8 +567,9 @@ def print_ns_counts():
             ns = translate_dict[k][0].split(":")[0]
             if ns in namespaces_rev:
                 nsc[namespaces_rev[ns]] += 1
-    print(json.dumps(nsc,indent=2))
-        
+    print(json.dumps(nsc, indent=2))
+
+
 def main():
     print_sorted_dict()
     print_ns_counts()
